@@ -4,12 +4,13 @@ import twilio from "twilio";
 const router = express.Router();
 
 router.post("/whatsapp", (req, res) => {
+  console.log("📩 Mensaje entrante:", req.body.Body);
+
   const twiml = new twilio.twiml.MessagingResponse();
+  twiml.message("🤖 Cogniq está activo y respondió correctamente.");
 
-  twiml.message("🤖 Cogniq está activo y te recibió.");
-
-  res.set("Content-Type", "text/xml");
-  res.status(200).send(twiml.toString());
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  res.end(twiml.toString());
 });
 
 export default router;
